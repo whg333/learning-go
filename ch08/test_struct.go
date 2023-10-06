@@ -9,7 +9,7 @@ type MyStruct struct {
 	toggle bool
 }
 
-type Number int
+type Number int // 基于基础类型int来定义Number
 
 func (n *Number) Println() {
 	fmt.Println(*n)
@@ -41,7 +41,7 @@ func main() {
 	passByReference(&myStruct2)
 	fmt.Printf("after %#v\n", myStruct2)
 
-	number := Number(4)
+	number := Number(4) // 类型转换int-->Number
 	number.Println()
 	number.Double()
 	number.Println()
