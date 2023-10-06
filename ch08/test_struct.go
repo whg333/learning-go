@@ -9,6 +9,16 @@ type MyStruct struct {
 	toggle bool
 }
 
+type Number int
+
+func (n *Number) Println() {
+	fmt.Println(*n)
+}
+
+func (n *Number) Double() {
+	*n *= 2
+}
+
 func main() {
 	// 临时定义的结构体
 	var myStruct1 struct {
@@ -30,6 +40,11 @@ func main() {
 	//passByValue(myStruct2)
 	passByReference(&myStruct2)
 	fmt.Printf("after %#v\n", myStruct2)
+
+	number := Number(4)
+	number.Println()
+	number.Double()
+	number.Println()
 }
 
 /**
