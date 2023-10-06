@@ -6,13 +6,21 @@ import (
 )
 
 func main() {
-	address := magazine.Address{}
-	address.Street = "123 Oak St"
-	address.City = "Omaha"
-	address.State = "NE"
-	address.PostalCode = "68111"
+	subscriber := magazine.Subscriber{Name: "Aman Singh"}
+	subscriber.Address.Street = "123 Oak St"
+	subscriber.Address.City = "Omaha"
+	subscriber.State = "NE"
+	subscriber.PostalCode = "68111"
+	fmt.Println("subscriber\t=\t", subscriber)
 
-	employee := magazine.Employee{}
+	address := magazine.Address{
+		Street: "456 Elm St",
+		City:   "Portland",
+	} // struct字面量
+	address.State = "OR"
+	address.PostalCode = "97222"
+
+	employee := magazine.Employee{Name: "Joye Carr"}
 	employee.HomeAddress = address
-	fmt.Println(employee)
+	fmt.Println("employee\t=\t", employee)
 }
