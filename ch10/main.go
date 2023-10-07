@@ -7,13 +7,26 @@ import (
 )
 
 func main() {
-	date := calendar.Date{}
-	fmt.Println(date)
-	err := date.SetYear(2023)
+	date1 := calendar.Date{}
+	fmt.Println(date1)
+	err := date1.SetYear(2023)
 	check.CheckAndLog(err)
-	err = date.SetMonth(10)
+	err = date1.SetMonth(10)
 	check.CheckAndLog(err)
-	err = date.SetDay(7)
+	err = date1.SetDay(7)
 	check.CheckAndLog(err)
-	fmt.Println(date)
+	fmt.Println(date1)
+
+	date2 := calendar.Date{}
+	date2.Init(2022, 11, 28)
+	fmt.Println(date2)
+	err = date2.SetYear(2021)
+	check.CheckAndLog(err)
+	fmt.Println(date2)
+
+	date3 := calendar.NewDate(2013, 9, 28)
+	fmt.Println(date3)
+	err = date3.SetDay(7)
+	check.CheckAndLog(err)
+	fmt.Println(date3)
 }

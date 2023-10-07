@@ -1,11 +1,26 @@
 package calendar
 
-import "errors"
+import (
+	"errors"
+	"learning-go/whg/check"
+)
 
 type Date struct {
 	year  int
 	month int
 	day   int
+}
+
+func NewDate(year int, month int, day int) Date {
+	date := Date{}
+	date.Init(year, month, day)
+	return date
+}
+
+func (d *Date) Init(year int, month int, day int) {
+	check.CheckAndLog(d.SetYear(year))
+	check.CheckAndLog(d.SetMonth(month))
+	check.CheckAndLog(d.SetDay(day))
 }
 
 func (d *Date) SetYear(year int) error {
