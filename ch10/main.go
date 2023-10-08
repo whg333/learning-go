@@ -29,4 +29,10 @@ func main() {
 	err = date3.SetDay(7)
 	check.CheckAndLog(err)
 	fmt.Println(date3)
+
+	event := calendar.NewEvent("纪念日")
+	event.Init(2023, 10, 8)
+	fmt.Println(event)
+	event.Date = date3
+	fmt.Println(event)
 }
