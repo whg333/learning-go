@@ -11,16 +11,16 @@ func main() {
 	showDir("my_directory")
 }
 
-func showDir(dir string) {
-	fmt.Println(dir)
-	fileInfos, err := ioutil.ReadDir(dir)
+func showDir(path string) {
+	fmt.Println(path)
+	fileInfos, err := ioutil.ReadDir(path)
 	check.CheckAndLog(err)
 	for _, fileInfo := range fileInfos {
-		fileName := filepath.Join(dir, fileInfo.Name())
+		filePath := filepath.Join(path, fileInfo.Name())
 		if fileInfo.IsDir() {
-			showDir(fileName)
+			showDir(filePath)
 		} else {
-			fmt.Println(fileName)
+			fmt.Println(filePath)
 		}
 	}
 }
