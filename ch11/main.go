@@ -21,11 +21,13 @@ func playList(device Player, songs []string) {
 	device.Stop()
 }
 
+// Player 不需要额外语法声明TapePlayer和TapeRecorder为Player接口，只需要实现Player接口的方法即可
 type Player interface {
 	Play(song string)
 	Stop()
 }
 
+// TapePlayer 在Go语言中没有类的定义，只有struct结构体和func函数定义，二者分开定义并用接收器关联即为方法
 type TapePlayer struct {
 	Batteries string
 }
