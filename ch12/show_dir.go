@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"learning-go/whg/check"
+	"path/filepath"
 )
 
 func main() {
@@ -11,15 +12,15 @@ func main() {
 }
 
 func showDir(dir string) {
+	fmt.Println(dir)
 	fileInfos, err := ioutil.ReadDir(dir)
 	check.CheckAndLog(err)
 	for _, fileInfo := range fileInfos {
-		fileName := dir + "/" + fileInfo.Name()
+		fileName := filepath.Join(dir, fileInfo.Name())
 		if fileInfo.IsDir() {
-			fmt.Println("Directory:", fileName)
 			showDir(fileName)
 		} else {
-			fmt.Println("File:", fileName)
+			fmt.Println(fileName)
 		}
 	}
 }
