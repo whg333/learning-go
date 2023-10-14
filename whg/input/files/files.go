@@ -3,6 +3,7 @@ package files
 import (
 	"bufio"
 	"learning-go/whg/check"
+	"log"
 	"os"
 	"strconv"
 )
@@ -19,17 +20,24 @@ func GetFloats(fileName string) []float64 {
 }
 
 func GetLines(fileName string) []string {
-	var lines []string
 	file, err := os.Open(fileName)
+	defer func(file *os.File) {
+		err := file.Close()
+		check.CheckAndLog(err)
+	}(file)
+
+	if os.IsNotExist(err) {
+		log.Printf("fileName[%s] Not Exist!\n", fileName)
+		return nil
+	}
 	check.CheckAndLog(err)
 
+	var lines []string
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
 		lines = append(lines, line)
 	}
-	err = file.Close()
-	check.CheckAndLog(err)
 	check.CheckAndLog(scanner.Err())
 	return lines
 }

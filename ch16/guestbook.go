@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"learning-go/whg/check"
+	"learning-go/whg/input/files"
 	"log"
 	"net/http"
+	"text/template"
 )
 
 func main() {
@@ -14,7 +17,10 @@ func main() {
 }
 
 func guestbook(response http.ResponseWriter, request *http.Request) {
-	message := []byte("signature list goes here") // 字符串转换为byte切片
-	_, err := response.Write(message)
+	signatures := files.GetLines("signatures.txt")
+	fmt.Printf("%#v\n", signatures)
+	html, err := template.ParseFiles("guestbook.html")
+	check.CheckAndLog(err)
+	err = html.Execute(response, nil)
 	check.CheckAndLog(err)
 }
