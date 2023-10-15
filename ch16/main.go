@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"learning-go/whg/check"
 	"os"
 	"text/template"
@@ -18,6 +19,11 @@ func main() {
 	executeTemplate("before: {{.}}\n{{range .}}{{.}}\n{{end}}after: {{.}}\n", []string{"1", "2", "3"})
 
 	executeTemplate("{{.Name}}, {{.Age}}\n", Person{Name: "whg", Age: 30})
+
+	fmt.Println(os.FileMode(0600))
+	fmt.Println(os.FileMode(0755)) // 0开头的0755代表八进制，FileMode对应Unix样式的文件权限
+	fmt.Println(os.FileMode(755))  // 755代表十进制
+	fmt.Println(os.FileMode(0070))
 }
 
 func executeTemplate(text string, data any) {

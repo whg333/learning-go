@@ -20,7 +20,7 @@ func GetFloats(fileName string) []float64 {
 }
 
 func GetLines(fileName string) []string {
-	file, err := os.Open(fileName)
+	file, err := os.Open(fileName) // 内部调用os.OpenFile
 	defer func(file *os.File) {
 		err := file.Close()
 		check.CheckAndLog(err)
