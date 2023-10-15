@@ -35,7 +35,7 @@ func runFunc(s string) {
 			go timeFunc(responseSize, url)
 		}
 		for i := 0; i < len(urls); i++ {
-			<-ch
+			<-ch // 从通道读出（接收）数据
 		}
 	} else {
 		for _, url := range urls {
@@ -56,7 +56,7 @@ func responseSize(url string) {
 
 	fmt.Println(url, ":", len(body))
 	if useGo {
-		ch <- 1
+		ch <- 1 // 向通道写入（发送）数据
 	}
 }
 
