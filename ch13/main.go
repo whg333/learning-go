@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var ch chan int
+var ch chan int // 用于和goroutine协作通信的通道
 
 const useGo = true
 
@@ -25,23 +25,28 @@ func main() {
 func runFunc(s string) {
 	//responseSize("https://example.com")
 
+	urls := []string{
+		"https://baidu.com",
+		"https://example.com",
+		"https://163.com",
+	}
 	if useGo {
-		go timeFunc(responseSize, "https://baidu.com")
-		go timeFunc(responseSize, "https://example.com")
-		go timeFunc(responseSize, "https://163.com")
-		<-ch
-		<-ch
-		<-ch
+		for _, url := range urls {
+			go timeFunc(responseSize, url)
+		}
+		for i := 0; i < len(urls); i++ {
+			<-ch
+		}
 	} else {
-		timeFunc(responseSize, "https://baidu.com")
-		timeFunc(responseSize, "https://example.com")
-		timeFunc(responseSize, "https://163.com")
+		for _, url := range urls {
+			timeFunc(responseSize, url)
+		}
 	}
 
 }
 
 func responseSize(url string) {
-	fmt.Println("Getting", url)
+	//fmt.Println("Getting", url)
 	response, err := http.Get(url)
 	check.CheckAndLog(err)
 	defer response.Body.Close()
@@ -49,7 +54,7 @@ func responseSize(url string) {
 	body, err := ioutil.ReadAll(response.Body)
 	check.CheckAndLog(err)
 
-	fmt.Println(len(body))
+	fmt.Println(url, ":", len(body))
 	if useGo {
 		ch <- 1
 	}
