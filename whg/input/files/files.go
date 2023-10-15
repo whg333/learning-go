@@ -21,13 +21,10 @@ func GetFloats(fileName string) []float64 {
 
 func GetLines(fileName string) []string {
 	file, err := os.Open(fileName) // 内部调用os.OpenFile
-	defer func(file *os.File) {
-		err := file.Close()
-		check.CheckAndLog(err)
-	}(file)
+	defer closeFile(fileName, file)
 
 	if os.IsNotExist(err) {
-		log.Printf("fileName[%s] Not Exist!\n", fileName)
+		log.Printf("[%s] Not Exist!\n", fileName)
 		return nil
 	}
 	check.CheckAndLog(err)
@@ -40,4 +37,15 @@ func GetLines(fileName string) []string {
 	}
 	check.CheckAndLog(scanner.Err())
 	return lines
+}
+
+func closeFile(fileName string, file *os.File) {
+	if file == nil {
+		log.Printf("[%s] is nil, not need Close!\n", fileName)
+		return
+	}
+	log.Printf("[%s] begin Close!\n", fileName)
+	err := file.Close()
+	check.CheckAndLog(err)
+	log.Printf("[%s] end Close!\n", fileName)
 }
